@@ -14,6 +14,8 @@
 
 $tmp = '/tmp/eastaxis-storage';
 
+$tmpBootstrap = $tmp.'/bootstrap-cache';
+
 foreach ([
     $tmp,
     $tmp.'/app/public',
@@ -21,6 +23,7 @@ foreach ([
     $tmp.'/framework/sessions',
     $tmp.'/framework/views',
     $tmp.'/logs',
+    $tmpBootstrap,
 ] as $dir) {
     if (!is_dir($dir)) {
         mkdir($dir, 0775, true);
@@ -35,6 +38,11 @@ require __DIR__.'/../vendor/autoload.php';
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
 $app->useStoragePath($tmp);
+
+// bootstrap/cache/*.php (packages.php, services.php, config.php, routes.php)
+// also gets written at runtime by Laravel — that directory is read-only on
+// Vercel too, so redirect it to /tmp as well.
+$app->useBootstrapPath($tmpBootstrap);
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
