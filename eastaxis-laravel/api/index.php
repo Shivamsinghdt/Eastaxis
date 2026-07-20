@@ -23,7 +23,7 @@ foreach ([
     $tmp.'/framework/sessions',
     $tmp.'/framework/views',
     $tmp.'/logs',
-    $tmpBootstrap,
+    $tmpBootstrap.'/cache',
 ] as $dir) {
     if (!is_dir($dir)) {
         mkdir($dir, 0775, true);
