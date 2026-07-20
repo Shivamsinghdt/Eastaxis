@@ -18,12 +18,12 @@
       "dest": "/public/$1"
     },
     {
-      "src": "/storage/(.*)",
-      "dest": "/api/index.php"
+      "src": "/(css|js|images|fonts|build)/(.*)",
+      "dest": "/public/$1/$2"
     },
     {
-      "src": "/build/(.*)",
-      "dest": "/public/build/$1"
+      "src": "/storage/(.*)",
+      "dest": "/api/index.php"
     },
     {
       "src": "/(.*)",
